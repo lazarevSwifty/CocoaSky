@@ -11,7 +11,7 @@ import Foundation
 
 struct NetworkingManager {
     
-    static func fetchData(url: String, completion: @escaping (WeatherData) -> ()) {
+    static func fetchOpenWeatherMap(url: String, completion: @escaping (UniversalWeather) -> ()) {
         guard let url = URL(string: url) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response
@@ -19,7 +19,40 @@ struct NetworkingManager {
             guard let data = data else { return }
             do {
                 let decoder = JSONDecoder()
-                let weather = try decoder.decode(WeatherData.self, from: data)
+                let weatherData = try decoder.decode(WeatherData.self, from: data)
+                let first =  weatherData.list[0]
+                let main = first.main
+                
+                let weatherDataList = [
+                    weatherData.list[7],
+                    weatherData.list[15],
+                    weatherData.list[23],
+                    weatherData.list[31]
+                ]
+                
+                var weatherTemperaturesOfDayList = [UniversalWeatherTemperature]()
+                for l in weatherDataList {
+                    let t = UniversalWeatherTemperature(
+                        temp: l.main.temp,
+                        desc: l.weather[0].weatherDescription.rawValue,
+                        icon: l.weather[0].weatherIcon,
+                        date: l.dtTxt
+                    )
+                    
+                    weatherTemperaturesOfDayList.append(t)
+                }
+                let current = UniversalWeatherTemperature(
+                    temp: main.temp,
+                    desc: first.weather[0].weatherDescription.rawValue,
+                    icon: first.weather[0].weatherIcon,
+                    date: first.dtTxt
+                )
+                
+                let weather = UniversalWeather(
+                    currentTemperature: current,
+                    temperaturesOnAllDay: weatherTemperaturesOfDayList
+                )
+                
                 DispatchQueue.main.async {
                     completion(weather)
                 }
@@ -28,5 +61,6 @@ struct NetworkingManager {
             }
             }.resume()
     }
-
 }
+
+

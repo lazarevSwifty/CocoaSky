@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-// MARK: - UIImageView
 extension UIImageView {
+    
     func dowlandImage(from url: String) {
         let urlRequest = URLRequest(url: URL(string: url)!)
         
@@ -23,7 +23,7 @@ extension UIImageView {
             }.resume
     }
     
-    func getWeatherIcon(icon: String) {
+    func setWeatherIcon(icon: String) {
         self.image = UIImage(named: icon)
     }
 }
