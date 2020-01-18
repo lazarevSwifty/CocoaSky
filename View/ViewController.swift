@@ -12,23 +12,22 @@ import NavigationDropdownMenu
 
 class ViewController: UIViewController {
     
-    
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var tempretureBarItem: UIBarButtonItem!
     @IBOutlet var tableView: UITableView!
-    
-    var selectedIndex = 0
+    @IBOutlet var tempLabel: UILabel!
+    @IBOutlet var backgroundImageView: UIImageView!
     
     var weatherCurrent: UniversalWeatherTemperature?
     var weatherList = [UniversalWeatherTemperature]()
     
-    let items = ["Mexico", "Moscow", "Samara", "Orel"]
-    
-    @IBOutlet var tempLabel: UILabel!
-    
+    let backgroundItems = ["Mexico", "Moscow", "Samara", "Kaliningrad"]
+    var selectedItem = 0
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.alwaysBounceVertical = false;
         
         setupNavBarAndNavControllerStyle()
         preloadWeatherData()
@@ -36,7 +35,7 @@ class ViewController: UIViewController {
     }
     
     func setupDropdownMenu() {
-        let menuView = NavigationDropdownMenu(title: Title.index(1), items: items)
+        let menuView = NavigationDropdownMenu(title: Title.index(1), items: backgroundItems)
         navigationItem.titleView = menuView
         
         menuView.animationDuration = 0.3
@@ -48,10 +47,13 @@ class ViewController: UIViewController {
         menuView.cellSelectionColor =  #colorLiteral(red: 0.1490027606, green: 0.1490303874, blue: 0.1489966214, alpha: 0.2467264525)
         menuView.cellTextLabelColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
         menuView.cellSeparatorColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 0.5102057658)
+        menuView.setSelected(index: UserSettings.getSelectedIndex())
         
         menuView.didSelectItemAtIndexHandler = {[weak self] (indexPath: Int) -> () in
-            let url = Constants.weatherUrl + self!.items[indexPath]
+            let url = Constants.weatherUrl + self!.backgroundItems[indexPath]
             self?.updateWeatherAndReloadData(fromURL: url) {
+                let currentBackground = UIImage(named: (self?.backgroundItems[indexPath])!)
+                self?.backgroundImageView.image = currentBackground
                 UserSettings.setSelectedIndex(indexPath)
             }
         }
@@ -80,8 +82,9 @@ class ViewController: UIViewController {
                 }
             }
         }
-        let testUrl = Constants.weatherUrl + "Moskva"
-        self.updateWeatherAndReloadData(fromURL: testUrl)
+        let currentBackground = backgroundItems[UserSettings.getSelectedIndex()]
+        let url = Constants.weatherUrl + currentBackground
+        self.updateWeatherAndReloadData(fromURL: url)
     }
     
     /// toggle for type of tempreture
@@ -110,6 +113,8 @@ class ViewController: UIViewController {
         self.descriptionLabel.text = current.desc
         self.weatherCurrent = current
         self.weatherList = weather.temperaturesOnAllDay
+        let currentBackground = UIImage(named: (self.backgroundItems[UserSettings.getSelectedIndex()]))
+        self.backgroundImageView.image = currentBackground
         self.tableView.reloadData()
     }
 }

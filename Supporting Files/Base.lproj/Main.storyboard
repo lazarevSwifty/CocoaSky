@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="moscow" translatesAutoresizingMaskIntoConstraints="NO" id="dHP-5x-Sfg">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Mexico" translatesAutoresizingMaskIntoConstraints="NO" id="dHP-5x-Sfg">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -113,6 +113,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="backgroundImageView" destination="dHP-5x-Sfg" id="Xs0-R7-9xG"/>
                         <outlet property="descriptionLabel" destination="Vy7-oT-bkH" id="8E2-uv-zpX"/>
                         <outlet property="tableView" destination="6H7-Iz-08Q" id="nkH-Lx-h9q"/>
                         <outlet property="tempLabel" destination="RGt-mR-G33" id="kpD-4z-WXj"/>
@@ -143,6 +144,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="moscow" width="1100" height="734"/>
+        <image name="Mexico" width="1024" height="683"/>
     </resources>
 </document>

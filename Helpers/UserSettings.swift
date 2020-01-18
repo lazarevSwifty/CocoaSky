@@ -13,12 +13,7 @@ enum TemperatureType: Int {
     case fahrenheit
 }
 
-enum NetworkError: Error {
-    case badURL
-}
-
 struct UserSettings {
-    static let (nameKey, addressKey) = ("name", "address")
     private static let userDefault = UserDefaults.standard
     
     static func setTemperature(_ type: TemperatureType) {
