@@ -31,15 +31,15 @@ struct NetworkingManager {
                 ]
                 
                 var weatherTemperaturesOfDayList = [UniversalWeatherTemperature]()
-                for l in weatherDataList {
-                    let t = UniversalWeatherTemperature(
-                        temp: l.main.temp,
-                        desc: l.weather[0].weatherDescription.rawValue,
-                        icon: l.weather[0].weatherIcon,
-                        date: l.dtTxt
+                for item in weatherDataList {
+                    let universalWeather = UniversalWeatherTemperature(
+                        temp: item.main.temp,
+                        desc: item.weather[0].weatherDescription.rawValue,
+                        icon: item.weather[0].weatherIcon,
+                        date: item.dtTxt
                     )
                     
-                    weatherTemperaturesOfDayList.append(t)
+                    weatherTemperaturesOfDayList.append(universalWeather)
                 }
                 let current = UniversalWeatherTemperature(
                     temp: main.temp,

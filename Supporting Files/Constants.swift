@@ -11,5 +11,14 @@ import Foundation
 struct Constants {
     
     static let weatherUrl =  "https://api.openweathermap.org/data/2.5/forecast?appid=751275055a722898234d56ce0bec5b40&q="
-        
+    
+    static let weekDays = ["Monday",
+                           "Tuesday",
+                           "Wednesday",
+                           "Thursday",
+                           "Friday",
+                           "Saturday",
+                           "Sunday"]
+    
+    static let fullDateFormat = "yyyy-MM-dd HH:mm:ss"
 }

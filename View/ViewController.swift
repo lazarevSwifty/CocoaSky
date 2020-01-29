@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  CocoaSky
 //
 //  Created by Владислав Лазарев on 17/11/2019.
@@ -10,8 +10,9 @@ import UIKit
 import NavigationDropdownMenu
 
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var tempretureBarItem: UIBarButtonItem!
     @IBOutlet var tableView: UITableView!
@@ -27,8 +28,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
-        tableView.alwaysBounceVertical = false;
-        
+        tableView.alwaysBounceVertical = false
+        activityIndicator.startAnimating()
+        // TO DO Activity Indicator
         setupNavBarAndNavControllerStyle()
         preloadWeatherData()
         setupDropdownMenu()
@@ -78,6 +80,7 @@ class ViewController: UIViewController {
             if let checkDate = lastWeather.currentTemperature.toDate() {
                 if calendar.isDateInToday(checkDate) {
                     self.fillAndReloadData(lastWeather)
+                    activityIndicator.stopAnimating()
                     return
                 }
             }
@@ -87,7 +90,6 @@ class ViewController: UIViewController {
         self.updateWeatherAndReloadData(fromURL: url)
     }
     
-    /// toggle for type of tempreture
     @IBAction func barButtonClick(_ sender: UIBarButtonItem) {
         let newTempType: TemperatureType = UserSettings.getTemperature() == .celsius ? .fahrenheit : .celsius
         UserSettings.setTemperature(newTempType)
@@ -119,17 +121,17 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDelegate {
+extension MainViewController: UITableViewDelegate {
     
 }
 
-extension ViewController: UITableViewDataSource {
+extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return weatherList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "CustomCell") as! CustomCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "CustomCell") as! ForecastCell
         let temp = self.weatherList[indexPath.row]
         cell.dayLabel.text = temp.getWeekday()
         cell.imageOfWeather.setWeatherIcon(icon: temp.icon)

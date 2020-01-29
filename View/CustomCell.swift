@@ -1,5 +1,5 @@
 //
-//  CustomCell.swift
+//  ForecastCell.swift
 //  CocoaSky
 //
 //  Created by Владислав Лазарев on 03/12/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomCell: UITableViewCell {
+class ForecastCell: UITableViewCell {
     
     @IBOutlet var dayLabel: UILabel!
     @IBOutlet var imageOfWeather: UIImageView!
