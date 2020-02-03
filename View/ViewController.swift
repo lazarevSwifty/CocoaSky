@@ -80,7 +80,6 @@ class MainViewController: UIViewController {
             if let checkDate = lastWeather.currentTemperature.toDate() {
                 if calendar.isDateInToday(checkDate) {
                     self.fillAndReloadData(lastWeather)
-                    activityIndicator.stopAnimating()
                     return
                 }
             }
