@@ -12,7 +12,6 @@ import NavigationDropdownMenu
 
 class MainViewController: UIViewController {
     
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var tempretureBarItem: UIBarButtonItem!
     @IBOutlet var tableView: UITableView!
@@ -21,15 +20,14 @@ class MainViewController: UIViewController {
     
     var weatherCurrent: UniversalWeatherTemperature?
     var weatherList = [UniversalWeatherTemperature]()
-    
-    let backgroundItems = ["Mexico", "Moscow", "Samara", "Kaliningrad"]
+
+    let backgroundItems = Constants.cities
     var selectedItem = 0
         
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.alwaysBounceVertical = false
-        activityIndicator.startAnimating()
         // TO DO Activity Indicator
         setupNavBarAndNavControllerStyle()
         preloadWeatherData()
@@ -45,10 +43,10 @@ class MainViewController: UIViewController {
         menuView.cellTextLabelAlignment = .center
         menuView.cellTextLabelFont = UIFont.systemFont(ofSize: 18)
         menuView.shouldKeepSelectedCellColor = true
-        menuView.cellBackgroundColor = #colorLiteral(red: 0.1490027606, green: 0.1490303874, blue: 0.1489966214, alpha: 0.2467264525)
-        menuView.cellSelectionColor =  #colorLiteral(red: 0.1490027606, green: 0.1490303874, blue: 0.1489966214, alpha: 0.2467264525)
-        menuView.cellTextLabelColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 1)
-        menuView.cellSeparatorColor = #colorLiteral(red: 0.926155746, green: 0.9410773516, blue: 0.9455420375, alpha: 0.5102057658)
+        menuView.cellBackgroundColor = UIColor.MyTheme.cellBackgroundColor
+        menuView.cellSelectionColor =  UIColor.MyTheme.cellSelectionColor
+        menuView.cellTextLabelColor = UIColor.MyTheme.cellTextLabelColor
+        menuView.cellSeparatorColor = UIColor.MyTheme.cellSeparatorColor
         menuView.setSelected(index: UserSettings.getSelectedIndex())
         
         menuView.didSelectItemAtIndexHandler = {[weak self] (indexPath: Int) -> () in
@@ -132,9 +130,7 @@ extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "CustomCell") as! ForecastCell
         let temp = self.weatherList[indexPath.row]
-        cell.dayLabel.text = temp.getWeekday()
-        cell.imageOfWeather.setWeatherIcon(icon: temp.icon)
-        cell.tempretureLabel.text = temp.getCurrentTemperature()
+        cell.configure(temp: temp)
         
         return cell
     }

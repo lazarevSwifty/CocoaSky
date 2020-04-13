@@ -10,7 +10,6 @@ import Foundation
 
 
 struct NetworkingManager {
-    
     static func fetchOpenWeatherMap(url: String, completion: @escaping (UniversalWeather) -> ()) {
         guard let url = URL(string: url) else { return }
         
