@@ -1,10 +1,3 @@
-//
-//  Weather.swift
-//  
-//
-//  Created by Владислав Лазарев on 15.01.2020.
-//
-
 import Foundation
 
 struct UniversalWeather: Codable {

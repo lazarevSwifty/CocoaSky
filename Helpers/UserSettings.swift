@@ -1,11 +1,3 @@
-//
-//  UserDefaultsManager.swift
-//  CocoaSky
-//
-//  Created by Владислав Лазарев on 12/01/2020.
-//  Copyright © 2020 Владислав Лазарев. All rights reserved.
-//
-
 import Foundation
 
 enum TemperatureType: Int {

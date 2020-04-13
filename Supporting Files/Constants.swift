@@ -1,11 +1,3 @@
-//
-//  Constants.swift
-//  CocoaSky
-//
-//  Created by Владислав Лазарев on 04/12/2019.
-//  Copyright © 2019 Владислав Лазарев. All rights reserved.
-//
-
 import UIKit
 
 extension UIColor {

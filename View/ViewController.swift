@@ -1,11 +1,3 @@
-//
-//  MainViewController.swift
-//  CocoaSky
-//
-//  Created by Владислав Лазарев on 17/11/2019.
-//  Copyright © 2019 Владислав Лазарев. All rights reserved.
-//
-
 import UIKit
 import NavigationDropdownMenu
 
