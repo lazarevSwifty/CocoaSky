@@ -20,7 +20,7 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.alwaysBounceVertical = false
-        // TO DO Activity Indicator
+        
         setupNavBarAndNavControllerStyle()
         preloadWeatherData()
         setupDropdownMenu()
@@ -108,10 +108,6 @@ class MainViewController: UIViewController {
         self.backgroundImageView.image = currentBackground
         self.tableView.reloadData()
     }
-}
-
-extension MainViewController: UITableViewDelegate {
-    
 }
 
 extension MainViewController: UITableViewDataSource {

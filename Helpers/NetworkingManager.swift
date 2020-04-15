@@ -13,7 +13,7 @@ struct NetworkingManager {
                 let weatherData = try decoder.decode(WeatherData.self, from: data)
                 let first =  weatherData.list[0]
                 let main = first.main
-                
+
                 let weatherDataList = [
                     weatherData.list[7],
                     weatherData.list[15],
